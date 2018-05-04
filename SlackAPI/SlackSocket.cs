@@ -46,7 +46,9 @@ namespace SlackAPI
 #elif NETSTANDARD1_6
              var assemblies = DependencyContext.Default.GetDefaultAssemblyNames().Select(Assembly.Load);
 #elif NETSTANDARD1_3
-            var assemblies = new[] { typeof(SlackSocket).GetType().GetTypeInfo().Assembly };
+             var assemblies = new[] { typeof(SlackSocket).GetType().GetTypeInfo().Assembly };
+#elif NETCOREAPP2_0
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(x => x.GlobalAssemblyCache == false);
 #warning Autodetection not supported
 #else
 #error Platform not supported
